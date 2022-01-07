@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useContext } from 'react';
 import PropTypes from 'prop-types';
 import { HashRouter as Router, Routes, Route, Link,useLocation } from "react-router-dom";
 import { getPost } from '../../WebAPI'
+import { AuthContext,ArticleData } from '../../context'
 
 const Root = styled.div``;
 
@@ -43,16 +44,12 @@ Post.propTypes = {
     post: PropTypes.object
 }
 
-export default function Header() {
-    const [posts,setPosts] = useState([])
-    useEffect(()=>{
-        getPost()
-        .then(data => setPosts(data))
-        .catch(err => console.log(err))
-    },[])
+export default function HomePage() {
+    const { posts,setPosts } = useContext(ArticleData)
     
     return (
         <Root>
+            {console.log('HomePage: render')}
             {
                 posts.map(post => <Post key={post.id} post={post}></Post>)
             }

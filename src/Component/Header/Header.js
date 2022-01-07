@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { HashRouter as Router, Routes, Route, Link,useLocation,useNavigate } from "react-router-dom";
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import { AuthContext } from '../../context';
 import { setAuthToken } from '../../utils';
 
@@ -23,10 +23,12 @@ const LeftContainer = styled.div`
     align-items: center;
     height: 100%;
 `;
-const Brand = styled.div`
+const Brand = styled(Link)`
     font-size: 28px;
     font-weight: 700;
     margin-right: 20px;
+    text-decoration: none;
+    color: #000;
 `;
 const NavbarList = styled.div`
      display:flex;
@@ -52,7 +54,7 @@ export default function Header() {
     const location = useLocation();
     const { user,setUser } = useContext(AuthContext)
     let navigate = useNavigate()
-    console.log(location.pathname)
+    // console.log(location.pathname)
 
     const handleLogout = () => {
         setAuthToken('')
@@ -62,7 +64,7 @@ export default function Header() {
     return (
         <HeaderContainer>
             <LeftContainer>
-                <Brand>我的第一個部落格</Brand>
+                <Brand to="/">我的第一個部落格</Brand>
                 <NavbarList>
                     <Nav to="/" $active={location.pathname === '/'}>首頁</Nav>
                     {user && <Nav to="/new-post" $active={location.pathname === '/new-post'}>發布文章</Nav>}
