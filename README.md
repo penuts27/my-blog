@@ -10,11 +10,11 @@
 ![image](https://github.com/penuts27/my-blog/blob/main/my-blog-shot.png)
 ## 產品功能
 1. 使用者可以輸入帳號密碼登入帳號
-2. 使用者可以點擊任一篇文章，查看更多訊息，例如：發布者、發布時間
+2. 使用者可以點擊任一篇文章，查看更多訊息，例如：發佈者、發佈時間
 3. 使用者登入後可以發布文章
 
 ## 其他功能
-1. loading畫面，可預防阻止鏈續呼叫api
+1. loading畫面，可預防阻止連續呼叫api
 ![image](https://github.com/penuts27/my-blog/blob/main/diagram1.png)
 2. 前台資料驗證與提醒alert字串
 ![image](https://github.com/penuts27/my-blog/blob/main/diagram2.png)
