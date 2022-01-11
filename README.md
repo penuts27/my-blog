@@ -14,11 +14,11 @@
 3. 使用者登入後可以發布文章
 
 ## 其他功能
-1. loading畫面，可預防阻止連續呼叫api
+1. loading畫面，可阻止連續呼叫api
 ![image](https://github.com/penuts27/my-blog/blob/main/diagram1.png)
-2. 前台資料驗證與提醒alert字串
+2. 前台資料驗證 與 提醒用的alert字串
 ![image](https://github.com/penuts27/my-blog/blob/main/diagram2.png)
-3. 伺服器提示回傳alert字串
+3. 伺服器提示並回傳alert字串
 
 ### `npm start`
 clone 檔案後在終端機輸入 npm start ，現在，你可開啟任一瀏覽器瀏覽器輸入 http://localhost:3000 開始使用部落格1.0囉！
