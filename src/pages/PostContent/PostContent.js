@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { useNavigate,useParams } from "react-router-dom";
 import { setAuthToken } from '../../utils'
 import { ArticleData } from '../../context'
+import { deletePost,getPost } from '../../WebAPI'
 
 const PostContainer = styled.div`
       text-align: center;
@@ -35,17 +36,47 @@ const Author = styled.p`
     font-size: 14px;
     font-weight: 400;
 `;
+const DeleteBtn = styled.button`
+    margin-top: 20px;
+`;
 
 export default function PostContent({postData}){
     let { id } = useParams()
-    const { posts } = useContext(ArticleData)
+    const { posts,setPosts } = useContext(ArticleData)
     const targetId = posts.find(data => data.id === Number(id))
+    const [errMessage, setErrMessage] = useState('')
+    const navigate = useNavigate()
+
+    const Error = styled.div`
+        color: red;
+    `; 
+
+    const handleArticleDelete = (e) => {
+        e.preventDefault()
+        if(window.confirm('確定要刪除嗎')){
+            // 選擇確定執行
+            deletePost(id)
+            .then(data => {
+                getPost()
+                .then(data => {
+                    setPosts(data)
+                })
+                navigate('/')
+            })
+            .catch(err => {
+                setErrMessage(err)
+                console.log('err',err)
+            })
+        }
+    }
     return (
         <PostContainer>
             <Title>{targetId.title}</Title>
             <Context>{targetId.body}</Context>
             <PublishDate>發布日期: {new Date(targetId.createdAt).toLocaleString()}</PublishDate>
             <Author>作者: {targetId.username}</Author>
+            <DeleteBtn onClick={handleArticleDelete}>刪除</DeleteBtn>
+            {errMessage && <Error>{errMessage}</Error>}
         </PostContainer>
     )
 }

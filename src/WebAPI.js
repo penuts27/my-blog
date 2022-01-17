@@ -5,6 +5,11 @@ export const getPost = () => {
     return fetch(`${BASE_API}/posts?_sort=createdAt&_order=desc`)
     .then(res => res.json())
 }
+
+export const deletePost = (id) => {
+  return fetch(`${BASE_API}/posts/${id}`, {method: "DELETE"}).then(res => res.json())
+}
+
 export const postApi = (title,content) => {
   const token = getAuthToken()
   return fetch(`${BASE_API}/posts`, {
