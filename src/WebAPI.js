@@ -1,4 +1,7 @@
 import { getAuthToken } from './utils'
+import { AuthContext } from './context'
+import { useContext } from 'react'
+
 const BASE_API = 'https://student-json-api.lidemy.me'
 
 export const getPost = () => {
@@ -10,7 +13,7 @@ export const deletePost = (id) => {
   return fetch(`${BASE_API}/posts/${id}`, {method: "DELETE"}).then(res => res.json())
 }
 
-export const postApi = (title,content) => {
+export const postApi = (title, content, userNickName) => {
   const token = getAuthToken()
   return fetch(`${BASE_API}/posts`, {
   method: 'POST',
@@ -20,11 +23,42 @@ export const postApi = (title,content) => {
   },
   body: JSON.stringify({
     title,
-    username: 'hongshengWang',
+    username: userNickName,
     body: content,
   })
 })
 .then(res => res.json())
+}
+
+export const putPost = (id) => {
+  const token = getAuthToken()
+  return fetch(`${BASE_API}/posts/${id}`,{
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      title: "aaa",
+      username: "userNickName",
+      body: "content",
+    })
+  })
+  .then(res => res.json())
+}
+
+export const register = (username,password,nickname) => {
+  return fetch(`${BASE_API}/register`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      nickname,
+      username,
+      password
+    })
+  }).then(res => res.json())
 }
 
 export const login = (username,password) => {

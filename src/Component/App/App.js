@@ -10,9 +10,11 @@ import { AuthContext,ArticleData } from '../../context';
 import { getMe } from '../../WebAPI'
 import { getAuthToken } from '../../utils';
 import { getPost } from '../../WebAPI'
-
+import GlobalStyle from '../../constants/globalStyle'
 
 import './App.css';
+import SignInPage from '../../pages/SignInPage/SignInPage';
+
 
 const Root = styled.div`
   padding-top: 64px;
@@ -43,6 +45,7 @@ function App() {
   return (
     <ArticleData.Provider value={{posts,setPosts}}>
     <AuthContext.Provider value={{user,setUser}}>
+      <GlobalStyle/>
       <Root>
         <Router>
           <Header/>
@@ -51,6 +54,7 @@ function App() {
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/new-post" element={<NewPost/>} />
             <Route path="/posts/:id" element={<PostContent/>}/>
+            <Route path="/signin" element={<SignInPage/>}/>
           </Routes>
         </Router>
       </Root>

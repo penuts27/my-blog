@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useContext } from 'react';
-import { login,getMe } from '../../WebAPI'
+import { login,getMe, putPost } from '../../WebAPI'
 import styled from 'styled-components'
 import { useNavigate,useParams } from "react-router-dom";
 import { setAuthToken } from '../../utils'
@@ -12,6 +12,8 @@ const PostContainer = styled.div`
       max-width: 980px;
       margin: 0 auto;
 `;
+const inputGroup = styled.div``;
+
 const Title =styled.h1`
     font-size: 40px;
     font-weight: 700;
@@ -19,6 +21,18 @@ const Title =styled.h1`
     margin-bottom: 20px;
     line-height: 1.5;
 `;
+
+const TitleInput = styled.input.attrs(props=>({
+    type: 'text',
+    size: props.size || '16px'
+    }))`
+    display: none;
+    width: 300px;
+    border: 1px solid #444;
+    border-radius: 2px;
+    padding: 8px;
+`;
+
 const Context = styled.p`
     font-size: 18px;
     font-weight: 400;
@@ -39,6 +53,13 @@ const Author = styled.p`
 const DeleteBtn = styled.button`
     margin-top: 20px;
 `;
+const Edit = styled.button`
+    margin-top: 20px;
+    margin-left: 10px;
+`;
+const Error = styled.div`
+color: red;
+`; 
 
 export default function PostContent({postData}){
     let { id } = useParams()
@@ -47,10 +68,12 @@ export default function PostContent({postData}){
     const [errMessage, setErrMessage] = useState('')
     const navigate = useNavigate()
 
-    const Error = styled.div`
-        color: red;
-    `; 
+    const handleEditTitle = () => {
 
+    }
+    const handleEdit = () => {
+        putPost(id).then(data=>console.log(data))
+    }
     const handleArticleDelete = (e) => {
         e.preventDefault()
         if(window.confirm('確定要刪除嗎')){
@@ -71,11 +94,15 @@ export default function PostContent({postData}){
     }
     return (
         <PostContainer>
-            <Title>{targetId.title}</Title>
+            <inputGroup>
+                <Title onClick={handleEditTitle}>{targetId.title}</Title>
+                <TitleInput ></TitleInput>
+            </inputGroup>
             <Context>{targetId.body}</Context>
             <PublishDate>發布日期: {new Date(targetId.createdAt).toLocaleString()}</PublishDate>
             <Author>作者: {targetId.username}</Author>
             <DeleteBtn onClick={handleArticleDelete}>刪除</DeleteBtn>
+            {/* <Edit onClick={handleEdit}>編輯</Edit> */ }
             {errMessage && <Error>{errMessage}</Error>}
         </PostContainer>
     )

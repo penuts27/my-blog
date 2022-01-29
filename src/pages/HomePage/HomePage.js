@@ -5,6 +5,7 @@ import { HashRouter as Router, Routes, Route, Link,useLocation } from "react-rou
 import { getPost } from '../../WebAPI'
 import { AuthContext,ArticleData } from '../../context'
 import Paginator from '../../Component/Paginator/Paginator'
+import { MEDIA_QUERY_MD } from '../../constants/breakpoint'
 
 const Root = styled.div``;
 
@@ -19,15 +20,30 @@ const PostWrapper = styled(Link)`
     justify-content: space-between;
     text-decoration: none;
     color: #000;
-
-     & + & {
+    box-sizing: border-box;
+    & + & {
          margin-top: 10px;
-     }
+    }
+    ${MEDIA_QUERY_MD}{
+        display: block;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 `;
 const PostTitle = styled.div`
-    font-size: 20px;
-    font-weight: 700;
-    word-break: break-all;
+        /*  超過...隱藏  */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
+        font-size: 20px;
+        font-weight: 700;
+        word-break: break-all;
+        ${MEDIA_QUERY_MD}{
+            margin-bottom: 10px;
+        }
 `;
 const PostDate = styled.div`
     color: #999;

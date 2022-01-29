@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useContext } from 'react';
 import { login,getMe } from '../../WebAPI'
 import styled from 'styled-components'
-import { HashRouter as Router, Routes, Route, Link,useLocation,useNavigate } from "react-router-dom";
 import { setAuthToken } from '../../utils'
+import { HashRouter as Router, Routes, Route, Link,useLocation,useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context'
+import { register } from '../../WebAPI'
 import { MEDIA_QUERY_MD } from '../../constants/breakpoint'
 
 
@@ -27,13 +28,17 @@ const ErrorMessage = styled.div`
     margin-bottom: 8px;  
     color: red;   
 `;
+const CollectMessage = styled.div`
+    margin-bottom: 8px;  
+    color: green;
+`;
 
 const Label = styled.div`
     margin-bottom: 8px;
 `;
 const Input = styled.input.attrs(props=>({
     type: 'text',
-    size: props.size || '16px'
+    size: props.soze || '16px'
     }))`
     width: 300px;
     border: 1px solid #444;
@@ -60,19 +65,20 @@ const FormGroup = styled.div`
     margin-bottom: 10px;
 `;
 
-const ToggleSignIn = styled(Link)`
+const ToggleLogin = styled(Link)`
     display: block;
     margin-top: 10px;
 `;
 
-export default function LoginPage() {
+export default function SignInPage() {
     const [userNameValue, setUserNameValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
+    const [nickNameValue, setNickNameValue] = useState('')
     const [postErr,setPostErr] = useState('')
+    const [postCollect,setPostCollect] = useState('')
     const [isLoadingLogin,setIsLoadingLogin] = useState(false)
+    const {user, setUser} = useContext(AuthContext)
     const navigate = useNavigate()
-    const {setUser} = useContext(AuthContext) 
-    const location = useLocation();
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -82,11 +88,14 @@ export default function LoginPage() {
         if(!userNameValue) return setPostErr('something went wrong.username is required!')
         // 若密碼欄未填則不執行
         if(!passwordValue) return setPostErr('something went wrong.password is required!')
+        // 若暱稱欄未填則不執行
+        if(!nickNameValue) return setPostErr('something went wrong.nickname is required!')
         // 再次送出表單取消alert
         setPostErr('')
         // 發api之前更改狀態
         setIsLoadingLogin(true)
-        login(userNameValue,passwordValue)
+        // 發resister api
+        register(userNameValue,passwordValue, nickNameValue)
         .then(data => {
             console.log(data)
             if(data.ok === 0){
@@ -108,10 +117,18 @@ export default function LoginPage() {
                     return setPostErr(res.toString())
                 }
                 // 驗證成功，上傳使用者資料至app.js
-                setUser(res.data)
-                navigate('/')
+                // setUser(res.data)
+                // 之後可更新跟確認這一段成由上至下的promise結構，
+                setIsLoadingLogin(false)
+                return
             })
-            .catch(err=>{
+            .then(() => {
+                setPostCollect('帳號註冊成功')
+                setTimeout(() => {
+                },2000)
+                return
+            })
+            .catch(err => {
                 setIsLoadingLogin(false)
                 setPostErr(err.message)
             })
@@ -126,15 +143,20 @@ export default function LoginPage() {
             {isLoadingLogin && <Loading>Loading...</Loading>}
             <FormGroup>
                 <Label>username:</Label> 
-                <Input placeholder="請輸入使用者名稱" value={userNameValue} onChange={e=> setUserNameValue(e.target.value)}/>
+                <Input placeholder="請輸入註冊用使用者名稱" value={userNameValue} onChange={e=> setUserNameValue(e.target.value)}/>
             </FormGroup>
             <FormGroup>
-            <Label>password:</Label> 
-            <PasswordInput placeholder="請輸入密碼" value={passwordValue} onChange={e=> setPasswordValue(e.target.value)}/>
+                <Label>password:</Label> 
+                <PasswordInput placeholder="請輸入註冊用密碼" value={passwordValue} onChange={e=> setPasswordValue(e.target.value)}/>
+            </FormGroup>
+            <FormGroup>
+                <Label>nickname:</Label> 
+                <Input placeholder="請輸入註冊用暱稱" value={nickNameValue} onChange={e=> setNickNameValue(e.target.value)}/>
             </FormGroup>
             {postErr && <ErrorMessage>{postErr}</ErrorMessage>}
+            {postCollect && <CollectMessage>{postCollect}</CollectMessage>}
             <button>送出</button>
-            <ToggleSignIn to="/signin">或點我註冊</ToggleSignIn>
+            <ToggleLogin to="/login">或點我登入</ToggleLogin>
         </LoginForm>
     )
 } 

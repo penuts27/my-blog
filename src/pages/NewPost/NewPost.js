@@ -57,6 +57,7 @@ export default function NewPost({setPostData}) {
     const [isLoadingPostData,setIsLoadingPostData] = useState(false)
     const navigate = useNavigate()
     const {setPosts} = useContext(ArticleData) 
+    const { user } = useContext(AuthContext)
     
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -68,7 +69,7 @@ export default function NewPost({setPostData}) {
         if(!contentValue) return setPostErr('something went wrong.content is required!')
         setPostErr('')
         setIsLoadingPostData(true)
-        postApi(titleValue,contentValue).then(data=>{
+        postApi(titleValue, contentValue, user.nickname).then(data=>{
             if(data.ok === 0){
                 setIsLoadingPostData(false)
                 return setPostErr(data.message)
