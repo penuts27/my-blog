@@ -6,7 +6,6 @@
 帳號：user01
 密碼：Lidemy
 ```
-> 備註:自行註冊帳號的話，統一在後端把密碼改成 Lidemy，因此每個 user 的密碼都會一樣
 
 ## 專案畫面
 ![image](https://github.com/penuts27/my-blog/blob/main/my-blog-shot.png)
@@ -14,7 +13,8 @@
 1. 使用者可以輸入帳號密碼登入帳號
 2. 使用者可以點擊任一篇文章，查看更多訊息，例如：發佈者、發佈時間
 3. 使用者可以刪除文章
-4. 使用者可以註冊帳號，輸入nickname,username,password即可
+4. 使用者可以註冊帳號，輸入nickname,username,password註冊
+> 備註:自行註冊帳號的話，統一在後端把密碼改成 Lidemy，因此每個 user 的密碼都會一樣
 5. 使用者登入後可以發布文章，並以nickname為名發表
 
 ## 其他功能
