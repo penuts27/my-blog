@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import { useState,useEffect,useContext } from 'react';
+import { useState,useContext } from 'react';
 import PropTypes from 'prop-types';
 import { HashRouter as Router, Routes, Route, Link,useLocation } from "react-router-dom";
-import { getPost } from '../../WebAPI'
 import { AuthContext,ArticleData } from '../../context'
 import Paginator from '../../Component/Paginator/Paginator'
 import { MEDIA_QUERY_MD } from '../../constants/breakpoint'

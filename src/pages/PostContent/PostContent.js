@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { useContext } from 'react';
-import { login,getMe, putPost } from '../../WebAPI'
+import { useContext } from 'react'
+import { putPost } from '../../WebAPI'
 import styled from 'styled-components'
-import { useNavigate,useParams } from "react-router-dom";
-import { setAuthToken } from '../../utils'
+import { useNavigate,useParams } from "react-router-dom"
 import { ArticleData } from '../../context'
 import { deletePost,getPost } from '../../WebAPI'
 

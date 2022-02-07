@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { useContext } from 'react';
-import { login,getMe } from '../../WebAPI'
+import { useContext } from 'react'
 import styled from 'styled-components'
-import { useNavigate } from "react-router-dom";
-import { setAuthToken } from '../../utils'
+import { useNavigate } from "react-router-dom"
 import { AuthContext,ArticleData } from '../../context'
-import { postApi,getPost } from '../../WebAPI';
+import { postApi,getPost } from '../../WebAPI'
 
 const Loading = styled.div`
     position: fixed;

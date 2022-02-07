@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useContext } from 'react';
-import { login,getMe } from '../../WebAPI'
+import { getMe } from '../../WebAPI'
 import styled from 'styled-components'
 import { setAuthToken } from '../../utils'
-import { HashRouter as Router, Routes, Route, Link,useLocation,useNavigate } from "react-router-dom";
+import { HashRouter as Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context'
 import { register } from '../../WebAPI'
 import { MEDIA_QUERY_MD } from '../../constants/breakpoint'

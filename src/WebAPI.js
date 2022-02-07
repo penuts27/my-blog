@@ -1,6 +1,4 @@
 import { getAuthToken } from './utils'
-import { AuthContext } from './context'
-import { useContext } from 'react'
 
 const BASE_API = 'https://student-json-api.lidemy.me'
 

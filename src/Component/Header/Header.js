@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { HashRouter as Router, Routes, Route, Link,useLocation,useNavigate } from "react-router-dom";
-import { useContext,useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../context';
 import { setAuthToken } from '../../utils';
 import { MEDIA_QUERY_MD } from '../../constants/breakpoint'
